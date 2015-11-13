@@ -1,4 +1,4 @@
-var User = require('../models/user');
+var Sponsor = require('../models/sponsor');
 var config = require('../../config');
 var jsonwebtoken = require('jsonwebtoken');
 var secretKey = config.secretKey;
@@ -7,11 +7,7 @@ var fs = require('fs');
 
 function createToken(user) {
   var token = jsonwebtoken.sign({
-    id: user._id,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    role: user.role,
-    username: user.username
+    id: user._id
   }, secretKey, {
     expiresInMinute: 1440
   });
@@ -23,29 +19,8 @@ function validEmail(email) {
 }
 
 module.exports = {
-  authenticate: function(req, res, next) {
-    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
-    if (token) {
-      jsonwebtoken.verify(token, secretKey, function(err, decoded) {
-        if (err) {
-          res.status(403).send({
-            success: false,
-            message: "Failed to authenticate user"
-          });
-        } else {
-          req.decoded = decoded;
-          next();
-        }
-      });
-    } else {
-      res.status(403).send({
-        success: false,
-        message: "No Token provided"
-      });
-    }
-  },
   me: function(req, res) {
-    User.findById(req.decoded._id, function(err, user) {
+    Sponsor.findById(req.decoded._id, function(err, user) {
       if (err) {
         res.status(500).send(err);
         return;
@@ -54,7 +29,7 @@ module.exports = {
     });
   },
   signup: function(req, res) {
-    var user = new User({
+    var user = new Sponsor({
       name: {
         first: req.body.firstname,
         last: req.body.lastname
@@ -62,7 +37,11 @@ module.exports = {
       email: req.body.email,
       username: req.body.username,
       role: req.body.role,
-      password: req.body.password
+      password: req.body.password,
+      status: req.body.status,
+      profession: req.body.profession,
+      msg_title: req.body.title,
+      msg_body: req.body.msg
     });
     user.save(function(err) {
       if (err) {
@@ -75,14 +54,15 @@ module.exports = {
       } else {
         res.json({
           success: true,
-          message: 'User has been created!'
+          message: 'Sponsor has been created!',
+          user: user
         });
         return;
       }
     });
   },
-  getUsers: function(req, res) {
-    User.find({}, function(err, users) {
+  getSponsors: function(req, res) {
+    Sponsor.find({}, function(err, users) {
       if (err) {
         res.status(500).send(err);
         return;
@@ -90,8 +70,8 @@ module.exports = {
       res.json(users);
     });
   },
-  findUserById: function(req, res) {
-    User.findById(req.params.id, function(err, user) {
+  findSponsorById: function(req, res) {
+    Sponsor.findById(req.params.id, function(err, user) {
       if (err) {
         res.status(500).send(err);
         return;
@@ -99,8 +79,8 @@ module.exports = {
       res.json(user);
     });
   },
-  findUser: function(req, res) {
-    User.find({
+  findSponsor: function(req, res) {
+    Sponsor.find({
       $or: [{
         name: {
           first: req.body.firstname
@@ -124,8 +104,8 @@ module.exports = {
       res.json(user);
     });
   },
-  removeUser: function(req, res) {
-    User.remove({
+  removeSponsor: function(req, res) {
+    Sponsor.remove({
       _id: req.params.id
     }, function(err, ok) {
       if (err) {
@@ -161,7 +141,7 @@ module.exports = {
   },
   login: function(req, res) {
     var login = this;
-    User.findOne({
+    Sponsor.findOne({
       username: req.body.username
     }).select('password').exec(function(err, user) {
       if (err) {
@@ -170,7 +150,7 @@ module.exports = {
       if (!user) {
         res.status(500).send({
           success: false,
-          message: "User doesn't exist"
+          message: "Sponsor doesn't exist"
         });
       } else if (user) {
         var validPassword = user.comparePassword(req.body.password);
@@ -191,13 +171,17 @@ module.exports = {
     });
   },
   update: function(req, res) {
-    User.findOneAndUpdate({
+    Sponsor.findOneAndUpdate({
       _id: req.params.id
     }, {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       role: req.body.role,
-      username: req.body.username
+      username: req.body.username,
+      status: req.body.status,
+      profession: req.body.profession,
+      msg_title: req.body.title,
+      msg_body: req.body.msg
     }, function(err) {
       if (err) {
         res.status(500).send(err.errmsg || err.message || err);

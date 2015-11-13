@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+var SponsorSchema = new Schema({
   name: {
     first: {
       type: String,
@@ -14,8 +14,7 @@ var UserSchema = new Schema({
     }
   },
   role: {
-    type: Schema.Types.ObjectId,
-    ref: 'Role',
+    type: String,
     required: true
   },
   username: {
@@ -33,10 +32,35 @@ var UserSchema = new Schema({
   email: {
     type: String,
     required: true
+  },
+  dob: {
+    type: Date,
+    // required: true
+    default: new Date()
+  },
+  profession: {
+    type: String,
+    required: true
+  },
+  msg_title: {
+    type: String,
+    required: true
+  },
+  contribution: {
+    type: Number,
+    default: 0
+  },
+  msg_body: {
+    type: String,
+    required: true
+  },
+  status: {
+    type: String,
+    default: "Hey there! I'm using mschomi!"
   }
 });
 
-UserSchema.pre('save', function(next) {
+SponsorSchema.pre('save', function(next) {
   var user = this;
   if (!user.isModified('password')) {
     next();
@@ -51,9 +75,9 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.methods.comparePassword = function(password) {
+SponsorSchema.methods.comparePassword = function(password) {
   var user = this;
   return bcrypt.compareSync(password, user.password);
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Sponsor', SponsorSchema);
