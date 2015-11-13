@@ -1,7 +1,7 @@
 {
-  "name": "kogalo",
+  "name": "Mschomi",
   "version": "1.0.0",
-  "description": "kogalo",
+  "description": "Mschomi",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,14 +11,14 @@
     "url": "git+https://github.com/andela-hkoske/kogalo.git"
   },
   "keywords": [
-    "kogalo"
+    "Mschomi"
   ],
   "author": "Teddy Asola, Chris Ganga, Chris Vundi, Hannah Koske",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/andela-hkoske/kogalo/issues"
+    "url": "https://github.com/andela-hkoske/mschomi/issues"
   },
-  "homepage": "https://github.com/andela-hkoske/kogalo#readme",
+  "homepage": "https://github.com/andela-hkoske/mschomi#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.1",

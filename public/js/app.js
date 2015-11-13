@@ -2,5 +2,5 @@
 	'use strict';
 
 	angular
-		.module('mschomi', []);		
+		.module('mschomi', ['authSvc', 'authCtrl']);
 })();

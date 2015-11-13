@@ -29,6 +29,7 @@ module.exports = {
     });
   },
   signup: function(req, res) {
+
     var user = new Sponsor({
       name: {
         first: req.body.firstname,

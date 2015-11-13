@@ -50,6 +50,7 @@ module.exports = {
     });
   },
   signup: function(req, res) {
+    console.log("\n\n\nThe user: ", req.body, "\n\n\n");
     var user = new Student({
       name: {
         first: req.body.firstname,

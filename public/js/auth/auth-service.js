@@ -3,9 +3,34 @@
 
 	angular
 		.module('authSvc', [])
-		.factory('authService', ['$http','$q', function ($http, $q) {
+		.factory('authService', ['$http', '$q', function ($http, $q) {
+			var url = "api/students/login";
+
+			function signup (user) {
+				return $q(function (resolve, reject) {
+					$http
+						.post('/api/students', user)
+						.success(function (data) {
+							resolve(data);
+							console.log("signup", data);
+						})
+						.error(function (err) {
+							reject(err);
+						})
+				})
+			}
+
 			function login (user) {
-				//login user
+				return $q(function (resolve, reject) {
+					$http
+						.post(url, user)
+						.success(function (res) {
+							resolve(res);
+						})
+						.error(function (error) {
+							reject(error);
+						})
+				});
 			}
 
 			function logout () {
@@ -14,7 +39,8 @@
 
 			return {
 				login: login,
-				logout: logout
+				logout: logout,
+				signup: signup
 			}
 		}]);
 })();
