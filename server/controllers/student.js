@@ -1,4 +1,4 @@
-var User = require('../models/user');
+var Student = require('../models/student');
 var config = require('../../config');
 var jsonwebtoken = require('jsonwebtoken');
 var secretKey = config.secretKey;
@@ -7,11 +7,7 @@ var fs = require('fs');
 
 function createToken(user) {
   var token = jsonwebtoken.sign({
-    id: user._id,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    role: user.role,
-    username: user.username
+    id: user._id
   }, secretKey, {
     expiresInMinute: 1440
   });
@@ -44,9 +40,18 @@ module.exports = {
       });
     }
   },
+  me: function(req, res) {
+    Student.findById(req.decoded._id, function(err, user) {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+      res.json(user);
+    });
+  },
   signup: function(req, res) {
-    console.log('THe user: ', req.body);
-    var user = new User({
+    console.log("\n\n\nThe user: ", req.body, "\n\n\n");
+    var user = new Student({
       name: {
         first: req.body.firstname,
         last: req.body.lastname
@@ -54,7 +59,14 @@ module.exports = {
       email: req.body.email,
       username: req.body.username,
       role: req.body.role,
-      password: req.body.password
+      gender: req.body.gender,
+      password: req.body.password,
+      ed_level: req.body.ed_level,
+      status: req.body.status,
+      school: req.body.school,
+      msg_title: req.body.title,
+      msg_body: req.body.msg,
+      dob: req.body.dob
     });
     user.save(function(err) {
       if (err) {
@@ -67,14 +79,15 @@ module.exports = {
       } else {
         res.json({
           success: true,
-          message: 'User has been created!'
+          message: 'Student has been created!',
+          user: user
         });
         return;
       }
     });
   },
-  getUsers: function(req, res) {
-    User.find({}, function(err, users) {
+  getStudents: function(req, res) {
+    Student.find({}, function(err, users) {
       if (err) {
         res.status(500).send(err);
         return;
@@ -82,8 +95,8 @@ module.exports = {
       res.json(users);
     });
   },
-  findUserById: function(req, res) {
-    User.findById(req.params.id, function(err, user) {
+  findStudentById: function(req, res) {
+    Student.findById(req.params.id, function(err, user) {
       if (err) {
         res.status(500).send(err);
         return;
@@ -91,8 +104,8 @@ module.exports = {
       res.json(user);
     });
   },
-  findUser: function(req, res) {
-    User.find({
+  findStudent: function(req, res) {
+    Student.find({
       $or: [{
         name: {
           first: req.body.firstname
@@ -116,8 +129,8 @@ module.exports = {
       res.json(user);
     });
   },
-  removeUser: function(req, res) {
-    User.remove({
+  removeStudent: function(req, res) {
+    Student.remove({
       _id: req.params.id
     }, function(err, ok) {
       if (err) {
@@ -153,7 +166,7 @@ module.exports = {
   },
   login: function(req, res) {
     var login = this;
-    User.findOne({
+    Student.findOne({
       username: req.body.username
     }).select('password').exec(function(err, user) {
       if (err) {
@@ -162,7 +175,7 @@ module.exports = {
       if (!user) {
         res.status(500).send({
           success: false,
-          message: "User doesn't exist"
+          message: "Student doesn't exist"
         });
       } else if (user) {
         var validPassword = user.comparePassword(req.body.password);
@@ -183,13 +196,18 @@ module.exports = {
     });
   },
   update: function(req, res) {
-    User.findOneAndUpdate({
+    Student.findOneAndUpdate({
       _id: req.params.id
     }, {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       role: req.body.role,
-      username: req.body.username
+      username: req.body.username,
+      ed_level: req.body.ed_level,
+      status: req.body.status,
+      school: req.body.school,
+      msg_title: req.body.title,
+      msg_body: req.body.msg
     }, function(err) {
       if (err) {
         res.status(500).send(err.errmsg || err.message || err);

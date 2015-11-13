@@ -4,12 +4,12 @@
 	angular
 		.module('authSvc', [])
 		.factory('authService', ['$http', '$q', function ($http, $q) {
-			var url = "api/users/login";
-				
+			var url = "api/students/login";
+
 			function signup (user) {
 				return $q(function (resolve, reject) {
 					$http
-						.post('/api/users', user)
+						.post('/api/students', user)
 						.success(function (data) {
 							resolve(data);
 							console.log("signup", data);
@@ -18,7 +18,7 @@
 							reject(err);
 						})
 				})
-			}	
+			}
 
 			function login (user) {
 				return $q(function (resolve, reject) {

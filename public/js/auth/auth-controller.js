@@ -36,9 +36,9 @@
 					.signup(user)
 					.then(function (auth) {
 						if (auth.success) {
-
+              $scope.message ="you have successfully registered!";
 						} else {
-							// error messages
+							$scope.message ="There was a problem registering you!";
 						}
 					});
 			};
