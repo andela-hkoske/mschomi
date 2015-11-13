@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('auth', [])
+		.module('authCtrl', [])
 		.controller('authController', ['$scope', function ($scope) {
 			$scope.user = {}; //get from auth
 
