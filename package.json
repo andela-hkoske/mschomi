@@ -1,0 +1,22 @@
+{
+  "name": "kogalo",
+  "version": "1.0.0",
+  "description": "kogalo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-hkoske/kogalo.git"
+  },
+  "keywords": [
+    "kogalo"
+  ],
+  "author": "Teddy Asola, Chris Ganga, Chris Vundi, Hannah Koske",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-hkoske/kogalo/issues"
+  },
+  "homepage": "https://github.com/andela-hkoske/kogalo#readme"
+}
