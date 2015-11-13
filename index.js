@@ -3,6 +3,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');
+var path = require('path');
 
 var app = express();
 
@@ -30,6 +31,8 @@ app.use(morgan('dev', {
 
 var api = require('./server/routes')(app, express);
 app.use('/api', api);
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(config.port, function(err) {
   if (err) {
