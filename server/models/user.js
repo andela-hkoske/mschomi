@@ -15,7 +15,7 @@ var UserSchema = new Schema({
   },
   role: {
     type: Schema.Types.ObjectId,
-    ref: 'UserRole',
+    ref: 'Role',
     required: true
   },
   username: {
