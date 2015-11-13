@@ -44,6 +44,15 @@ module.exports = {
       });
     }
   },
+  me: function(req, res) {
+    User.findById(req.decoded._id, function(err, user) {
+      if (err) {
+        res.status(500).send(err);
+        return;
+      }
+      res.json(user);
+    });
+  },
   signup: function(req, res) {
     var user = new User({
       name: {

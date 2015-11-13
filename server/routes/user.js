@@ -4,6 +4,7 @@ module.exports = function(api) {
   api.post('/users',UserCtrl.signup);
   api.post('/users/login',UserCtrl.login);
   api.use(UserCtrl.authenticate);
+  api.get('/users/me', UserCtrl.me);
   api.get('/users',UserCtrl.getUsers);
   api.post('/users/find',UserCtrl.findUser);
   api.get('/users/logout',UserCtrl.logout);
