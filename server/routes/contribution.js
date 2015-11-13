@@ -1,12 +1,12 @@
-var CampaignCtrl = require('../controllers/campaign');
+var ContributionCtrl = require('../controllers/contribution');
 
 module.exports = function(api) {
-  api.post('/campaigns',CampaignCtrl.create);
-  api.get('/campaigns',CampaignCtrl.getCampaigns);
-  api.post('/campaigns/sponsor',CampaignCtrl.getCampaignBySponsor);
-  api.post('/campaigns/student',CampaignCtrl.getCampaignByStudent);
-  api.get('/campaigns/:id',CampaignCtrl.getCampaignById);
-  api.delete('/campaigns/:id',CampaignCtrl.removeCampaign);
-  api.put('/campaigns/:id',CampaignCtrl.update);
+  api.post('/contributions',ContributionCtrl.create);
+  api.get('/contributions',ContributionCtrl.getContributions);
+  api.post('/contributions/sponsor',ContributionCtrl.getContributionBySponsor);
+  api.post('/contributions/student',ContributionCtrl.getContributionByStudent);
+  api.get('/contributions/:id',ContributionCtrl.getContributionById);
+  api.delete('/contributions/:id',ContributionCtrl.removeContribution);
+  api.put('/contributions/:id',ContributionCtrl.update);
   return api;
 };
