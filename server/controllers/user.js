@@ -24,30 +24,25 @@ function validEmail(email) {
 
 module.exports = {
   authenticate: function(req, res, next) {
-    var respond = function(result, decoded) {
-      if (result) {
-        req.decoded = decoded;
-        next();
-      } else {
-        res.status(403).send({
-          success: false,
-          message: 'Failed to authenticate user. No token provided.'
-        });
-      }
-    };
-    fs.readFile('./server/data/token.txt', 'utf8', function(err, token) {
-      if (err) {
-        respond(false);
-        return console.log(err);
-      }
+    var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+    if (token) {
       jsonwebtoken.verify(token, secretKey, function(err, decoded) {
         if (err) {
-          respond(false);
+          res.status(403).send({
+            success: false,
+            message: "Failed to authenticate user"
+          });
         } else {
-          respond(true);
+          req.decoded = decoded;
+          next();
         }
       });
-    });
+    } else {
+      res.status(403).send({
+        success: false,
+        message: "No Token provided"
+      });
+    }
   },
   signup: function(req, res) {
     var user = new User({
@@ -177,26 +172,10 @@ module.exports = {
           });
         } else {
           var tokenStr = createToken(user);
-          var respond = function(result) {
-            if (result) {
-              res.send({
-                success: true,
-                message: 'Successfully logged in',
-                token: tokenStr
-              });
-            } else {
-              res.status(500).send({
-                success: true,
-                message: 'There was a problem logging in.'
-              });
-            }
-          };
-          fs.writeFile("./server/data/token.txt", tokenStr, function(err) {
-            if (err) {
-              respond(false);
-              return console.log(err);
-            }
-            respond(true);
+          res.send({
+            success: true,
+            message: 'Successfully logged in',
+            token: tokenStr
           });
         }
       }
