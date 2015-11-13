@@ -1,0 +1,13 @@
+{
+  "name": "Mschomi",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": "~1.4.3",
+    "angular-animate": "latest",
+    "angular-aria": "latest",
+    "angular-material": "~0.11.0",
+    "angular-resource": "~1.4.7",
+    "angular-ui-router": "~0.2.15",
+    "font-awesome": "fontawesome#~4.4.0",
+  }
+}
