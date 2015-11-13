@@ -3,7 +3,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config');
-require('./app/cli/index');
 
 var app = express();
 
@@ -29,14 +28,14 @@ app.use(morgan('dev', {
   }
 }));
 
-var api = require('./server/routes')(app, express);
-app.use('/api', api);
+// var api = require('./server/routes')(app, express);
+// app.use('/api', api);
 
 app.listen(config.port, function(err) {
   if (err) {
     console.log(err);
   } else {
-    console.log('app is up');
+    console.log('Listening to port 3000...');
   }
 });
 
