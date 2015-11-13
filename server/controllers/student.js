@@ -58,12 +58,14 @@ module.exports = {
       email: req.body.email,
       username: req.body.username,
       role: req.body.role,
+      gender: req.body.gender,
       password: req.body.password,
       ed_level: req.body.ed_level,
       status: req.body.status,
       school: req.body.school,
       msg_title: req.body.title,
-      msg_body: req.body.msg
+      msg_body: req.body.msg,
+      dob: req.body.dob
     });
     user.save(function(err) {
       if (err) {

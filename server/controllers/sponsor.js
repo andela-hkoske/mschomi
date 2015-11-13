@@ -37,6 +37,7 @@ module.exports = {
       email: req.body.email,
       username: req.body.username,
       role: req.body.role,
+      gender: req.body.gender,
       password: req.body.password,
       status: req.body.status,
       profession: req.body.profession,

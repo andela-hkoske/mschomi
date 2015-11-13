@@ -38,6 +38,10 @@ var SponsorSchema = new Schema({
     // required: true
     default: new Date()
   },
+  gender: {
+    type: String,
+    required: true
+  },
   profession: {
     type: String,
     required: true

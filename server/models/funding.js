@@ -7,6 +7,12 @@ var FundingSchema = new Schema({
     ref: 'User',
     required: true
   },
+  title:{
+    type: String
+  },
+  description: {
+    type: String
+  },
   target: {
     type: Number,
     default: 0

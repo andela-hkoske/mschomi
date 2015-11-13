@@ -24,6 +24,10 @@ var StudentSchema = new Schema({
       unique: true
     }
   },
+  gender: {
+    type: String,
+    required: true
+  },
   password: {
     type: String,
     required: true,
