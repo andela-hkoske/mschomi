@@ -28,8 +28,8 @@ app.use(morgan('dev', {
   }
 }));
 
-// var api = require('./server/routes')(app, express);
-// app.use('/api', api);
+var api = require('./server/routes')(app, express);
+app.use('/api', api);
 
 app.listen(config.port, function(err) {
   if (err) {

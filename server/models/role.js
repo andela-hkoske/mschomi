@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var UserRolesSchema = new Schema({
+var RolesSchema = new Schema({
   role: {
     type: String,
     required: true,
@@ -11,4 +11,4 @@ var UserRolesSchema = new Schema({
   }
 });
 
-module.exports = mongoose.model('UserRole', UserRolesSchema);
+module.exports = mongoose.model('Role', UserRolesSchema);
