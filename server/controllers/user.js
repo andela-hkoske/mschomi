@@ -45,6 +45,7 @@ module.exports = {
     }
   },
   signup: function(req, res) {
+    console.log('THe user: ', req.body);
     var user = new User({
       name: {
         first: req.body.firstname,
