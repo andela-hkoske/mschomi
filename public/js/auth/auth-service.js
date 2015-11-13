@@ -3,8 +3,8 @@
 
 	angular
 		.module('authSvc', [])
-		.factory('authService', ['$http','$q', function ($http, $q) {
-			var url = "";
+		.factory('authService', ['$http', '$q', function ($http, $q) {
+			var url = "api/users/login";
 			function login (user) {
 				$q(function (resolve, reject) {
 					$http
