@@ -1,5 +1,3 @@
-angular.module('mschomi', ['ngMaterial', 'angular-carousel'])
+angular.module('mschomi', ['ngMaterial'])
   .controller('WelcomeCtrl', function($scope) {
-    $scope.carouselimages = ['images/photo1.jpg', 'images/photo2.jpg'];
-    $scope.title = 'Hello World';
-  })
+  });
